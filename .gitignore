@@ -1,0 +1,5 @@
+#Ignore les fichier objets
+*.o
+#Ignore les fichier compilé
+*.a
+*.exe
