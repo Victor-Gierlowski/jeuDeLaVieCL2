@@ -3,3 +3,4 @@
 #Ignore les fichier compilé
 *.a
 *.exe
+temp/
