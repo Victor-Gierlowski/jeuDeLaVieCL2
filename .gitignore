@@ -1,6 +1,14 @@
 #Ignore les fichier objets
+obj/
 *.o
 #Ignore les fichier compilé
 *.a
 *.exe
+<<<<<<< HEAD
 temp/
+=======
+
+#Les compiler et autre
+*.xz
+*.tar
+>>>>>>> 39f798722180db529e1cc3f2e81ce1c4435837e5
