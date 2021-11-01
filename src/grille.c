@@ -1,13 +1,11 @@
 #include "grille.h"
 
 void alloue_grille (int l, int c, grille* g){
-	g = malloc(sizeof(grille));
 	g->nbl = l;
 	g->nbc = c;
-	g->cellules = malloc(sizeof(int*)*c);
 	int i;
+	g->cellules = malloc(sizeof(int*)*c);
 	for(i=0;i<c;i++){
-		g->cellules[i] = malloc(sizeof(int*)*l);
 	}
 }
 void libere_grille (grille* g){
@@ -21,14 +19,15 @@ void libere_grille (grille* g){
 
 void init_grille_from_file (char * filename, grille* g){
 	FILE * pfile = NULL;
+	printf("%s\n",filename );
 	pfile = fopen(filename, "r");
 	assert (pfile != NULL);
+
 
 	int i,j,n,l,c,vivantes=0;
 
 	fscanf(pfile, "%d", & l);
 	fscanf(pfile, "%d", & c);
-
 	alloue_grille(l,c,g);
 
 	fscanf(pfile, "%d", & vivantes);
