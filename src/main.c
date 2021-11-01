@@ -11,8 +11,6 @@ int main (int argc, char ** argv) {
 		return 1;
 	}
 
-	printf("%s\n", argv[0]);
-
 	grille g, gc;
 	init_grille_from_file(argv[1],&g);
 	alloue_grille (g.nbl, g.nbc, &gc);

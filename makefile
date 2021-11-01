@@ -2,7 +2,7 @@ libs = include/
 SRCPATH  = src/
 OBJPATH = obj/
 
-VERSION  = 1.0
+VERSION  = 1.1.2
 
 CC = gcc
 CCFLAGS = -Wall -I${libs} -g
@@ -22,7 +22,6 @@ all: jeu_de_la_vie
 
 $(OBJPATH)%.o : $(SRCPATH)%.c
 	$(CC) $(CCFLAGS) -c $< -o $@
-
 
 dist:
 	tar -cf $(VERSION).tar src makefile

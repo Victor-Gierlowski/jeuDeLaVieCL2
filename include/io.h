@@ -17,6 +17,9 @@ void affiche_grille (grille g);
 // effacement d'une grille
 void efface_grille (grille g);
 
+// Récupère une grille par l'utilisateur et remplace celle en argument
+void remplacer_grille(grille *g);
+
 // debute le jeu
 void debut_jeu(grille *g, grille *gc);
 
