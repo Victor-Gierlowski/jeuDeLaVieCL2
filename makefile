@@ -2,6 +2,7 @@ libs = include/
 SRCPATH  = src/
 OBJPATH = obj/
 
+VERSION  = 1.0
 
 CC = gcc
 CCFLAGS = -Wall -I${libs} -g
@@ -16,13 +17,19 @@ targets = $(subst $(SRCPATH),$(OBJPATH), $(subst .c,.o,$(wildcard $(SRCPATH)*.c)
 
 
 
-
+all: jeu_de_la_vie
 
 
 $(OBJPATH)%.o : $(SRCPATH)%.c
 	$(CC) $(CCFLAGS) -c $< -o $@
 
 
+dist:
+	tar -cf $(VERSION).tar src makefile
+	xz $(VERSION).tar
+
+docs:
+	doxygen Doxyfile -g
 
 ifeq ($(OS),Windows_NT)
 jeu_de_la_vie : $(targets)
