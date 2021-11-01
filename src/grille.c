@@ -20,10 +20,7 @@ void alloue_grille (int l, int c, grille* g){
 	int i;
 	g->cellules = malloc(sizeof(int*)*c);
 	for(i=0;i<c;i++){
-<<<<<<< HEAD
 		g->cellules[i] = malloc(sizeof(int**)*l);
-=======
->>>>>>> f25eeb3416a039318873a201a6e49a84db6a1cea
 	}
 }
 
@@ -57,11 +54,6 @@ void libere_grille (grille* g){
 
 void init_grille_from_file (char * filename, grille* g){
 	FILE * pfile = NULL;
-<<<<<<< HEAD
-	// printf("%s\n",filename );
-=======
-	printf("%s\n",filename );
->>>>>>> f25eeb3416a039318873a201a6e49a84db6a1cea
 	pfile = fopen(filename, "r");
 	assert (pfile != NULL);
 
