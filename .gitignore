@@ -14,4 +14,9 @@ bin
 
 
 #Dox
-doxygen/
+doxygen
+Docs
+*.html
+*.lnk
+*.bak
+doc

@@ -2,7 +2,7 @@ libs = include/
 SRCPATH  = src/
 OBJPATH = obj/
 
-VERSION  = 1.1.3
+VERSION  = 3.0
 
 CC = gcc
 CCFLAGS = -Wall -I${libs} -g
@@ -28,7 +28,7 @@ dist:
 	xz $(VERSION).tar
 
 docs:
-	doxygen Doxyfile -g
+	 (type Doxyfile & echo PROJECT_NUMBER=$(VERSION) ) | doxygen -
 
 ifeq ($(OS),Windows_NT)
 jeu_de_la_vie : $(targets)

@@ -4,12 +4,13 @@
 /**
   * \fn  compte_voisins_vivants_cyclique (int i, int j, grille g)
 	*	Compte les voisins vivant d'une cellule de manière cyclique.
+	* Ressemble à compte_voisins_vivants_NON_cyclique(int i, int j, grille g)
 	*
 	* \relatesalso grille
   * \param i int ,position Y de la cellule.
 	* \param j int ,position X de la cellule.
   * \param g grille copie, Celle qui va prendre les valeurs.
-	* \return int, le nombre de voisins vivants
+	* \return int v, le nombre de voisins vivants
 */
 
 int compte_voisins_vivants_cyclique (int i, int j, grille g){
@@ -35,7 +36,7 @@ int compte_voisins_vivants_cyclique (int i, int j, grille g){
   * \param i int ,position Y de la cellule.
 	* \param j int ,position X de la cellule.
   * \param g grille copie, Celle qui va prendre les valeurs.
-	* \return int, le nombre de voisins vivants
+	* \return int v, le nombre de voisins vivants
 */
 int compte_voisins_vivants_NON_cyclique (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
@@ -50,14 +51,6 @@ int compte_voisins_vivants_NON_cyclique (int i, int j, grille g){
 			}
 		}
 	}
-	// v+= est_vivante(modulo(i-1,l),modulo(j-1,c),g);
-	// v+= est_vivante(modulo(i-1,l),modulo(j,c),g);
-	// v+= est_vivante(modulo(i-1,l),modulo(j+1,c),g);
-	// v+= est_vivante(modulo(i,l),modulo(j-1,c),g);
-	// v+= est_vivante(modulo(i,l),modulo(j+1,c),g);
-	// v+= est_vivante(modulo(i+1,l),modulo(j-1,c),g);
-	// v+= est_vivante(modulo(i+1,l),modulo(j,c),g);
-	// v+= est_vivante(modulo(i+1,l),modulo(j+1,c),g);
 	return v;
 }
 
@@ -87,7 +80,7 @@ void evolue (grille *g, grille *gc,int AGE_STATE,int CYCLIQUE){
 				set_morte(i,j,*g);
 			else
 			{ // evolution d'une cellule morte
-				if ( v==3 ) set_vivante(i,j,*g);
+				if ( v==3 && est_viable(i,j,*g)) set_vivante(i,j,*g);
 			}
 		}
 	}

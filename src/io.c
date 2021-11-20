@@ -4,7 +4,6 @@
 
 /**
   * \fn affiche_cycle (int cycles,int c)
-	*
 	*	Affiche le nombres de cycle que la grille a vécu.
 	*
   * \relatesalso grille
@@ -22,7 +21,6 @@ void affiche_cycle (int cycles,int c){
 
 /**
   * \fn affiche_trait (int c, int* lignes)
-	*
 	*	Affiche les traits de la grille.
 	*
   * \relatesalso grille
@@ -38,7 +36,6 @@ void affiche_trait (int c, int* lignes){
 
 /**
   * \fn affiche_ligne (int c, int* ligne)
-	*
 	*	Affiche la ligne d'une grille.
 	*
   * \relatesalso grille
@@ -48,15 +45,17 @@ void affiche_trait (int c, int* lignes){
 
 void affiche_ligne (int c, int* ligne){
 	int i;
-	for (i=0; i<c; ++i)
-		if (ligne[i] == 0 ) printf ("|   "); else printf ("| # ");
+	for (i=0; i<c; ++i){
+		if (ligne[i] == 0 ) printf ("|   ");
+		else if(ligne[i]==-1) printf("| X "); 
+		else printf ("| # ");
+	}
 	printf("|\n");
 	return;
 }
 
 /**
   * \fn affiche_grille (grille g)
-	*
 	*	Affiche une grille dans la console à partir des fonctions affiche_ligne
 	* et affiche_trait. Les cases vivantes sont indiqué par un O dans la case.
 	*
@@ -80,7 +79,6 @@ void affiche_grille (grille g){
 
 /**
   * \fn efface_grille(grille g)
-	*
 	*	Reset l'affichage. Cette fonction remplace tous les caractères théoriquement
 	* placé précedément par affiche_grille par un espace et replace le curseur
 	* au début.

@@ -17,4 +17,6 @@ int compte_voisins_vivants_NON_cyclique (int i, int j, grille g);
 // fait évoluer la grille g d'un pas de temps
 void evolue (grille *g, grille *gc,int AGE_STATE,int CYCLIQUE);
 
+
+
 #endif

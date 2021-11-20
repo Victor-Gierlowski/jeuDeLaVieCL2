@@ -27,7 +27,8 @@ static inline void set_morte(int i, int j, grille g){g.cellules[i][j] = 0;}
 static inline int est_jeune(int i, int j, grille g){return (g.cellules[i][j] <8);}
 // teste si la cellule (i,j) de la grille g est vivante
 static inline int est_vivante(int i, int j, grille g){return (g.cellules[i][j] >= 1);}
-
+// teste si la cellule est apte à la vie
+static inline int est_viable(int i,int j, grille g){return !(g.cellules[i][j] == -1);}
 // recopie gs dans gd (sans allocation)
 void copie_grille (grille gs, grille gd);
 
