@@ -1,5 +1,17 @@
 #include "jeu.h"
 
+
+/**
+  * \fn  compte_voisins_vivants_cyclique (int i, int j, grille g)
+	*	Compte les voisins vivant d'une cellule de manière cyclique.
+	*
+	* \relatesalso grille
+  * \param i int ,position Y de la cellule.
+	* \param j int ,position X de la cellule.
+  * \param g grille copie, Celle qui va prendre les valeurs.
+	* \return int, le nombre de voisins vivants
+*/
+
 int compte_voisins_vivants_cyclique (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
 	v+= est_vivante(modulo(i-1,l),modulo(j-1,c),g);
@@ -13,6 +25,18 @@ int compte_voisins_vivants_cyclique (int i, int j, grille g){
 
 	return v;
 }
+
+/**
+  * \fn  compte_voisins_vivants_NON_cyclique (int i, int j, grille g)
+	*	Compte les voisins vivant d'une cellule mais n'est pas cyclique.
+	* Ressemble à compte_voisins_vivants_cyclique(int i, int j, grille g)
+	*
+	* \relatesalso grille
+  * \param i int ,position Y de la cellule.
+	* \param j int ,position X de la cellule.
+  * \param g grille copie, Celle qui va prendre les valeurs.
+	* \return int, le nombre de voisins vivants
+*/
 int compte_voisins_vivants_NON_cyclique (int i, int j, grille g){
 	int v = 0, l=g.nbl, c = g.nbc;
 	//Compteurs pour matrice 3x3
@@ -22,7 +46,6 @@ int compte_voisins_vivants_NON_cyclique (int i, int j, grille g){
 			// On vérifie qu'on reste dans les cases définie de la grille
 			// Et que ce n'est pas la case centrale
 			if(i1 + i <l&& i1+i>=0 && i2+j < c&& i2+j >=0 && !(i1==0 && i2==0)){
-				printf("%d %d\n",i1+i,i2+j );
 				v+=est_vivante(i1+i,i2+j,g);
 			}
 		}
