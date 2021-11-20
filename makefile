@@ -2,7 +2,7 @@ libs = include/
 SRCPATH  = src/
 OBJPATH = obj/
 
-VERSION  = 1.1.2
+VERSION  = 1.1.3
 
 CC = gcc
 CCFLAGS = -Wall -I${libs} -g

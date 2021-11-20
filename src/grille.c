@@ -20,7 +20,7 @@ void alloue_grille (int l, int c, grille* g){
 	int i;
 	g->cellules = malloc(sizeof(int*)*c);
 	for(i=0;i<c;i++){
-		g->cellules[i] = malloc(sizeof(int**)*l);
+		g->cellules[i] = calloc(l,sizeof(int**));
 	}
 }
 
@@ -46,7 +46,6 @@ void libere_grille (grille* g){
 	*	Lit le fichier passé en paramètre pour créer une grille et la stocker dans le pointeur grille transmit.
 	*
 	* \relatesalso grille
-  * \relatesalso alloue_grille
   * \param filename char*, Le chemin du fichier contenant les informations de la grille.
   * \param g grille*, le pointeur de la grille à qui associé les données.
 */
@@ -75,7 +74,7 @@ void init_grille_from_file (char * filename, grille* g){
 	return;
 }
 /**
-  * \fn init_grille_from_file(char * filename, grille* g)
+  * \fn  copie_grille (grille gs, grille gd)
 	*	Permet la duplication des valeurs d'une grille sans partager les cases mémoires.
 	*
 	* \relatesalso grille

@@ -6,7 +6,7 @@
 #include "jeu.h"
 
 // affichage d'un trait horizontal
-void affiche_trait (int c);
+void affiche_trait (int c, int* lignes);
 
 // affichage d'une ligne de la grille
 void affiche_ligne (int c, int* ligne);

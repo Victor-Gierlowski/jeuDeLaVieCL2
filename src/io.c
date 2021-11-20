@@ -1,19 +1,37 @@
 #include "io.h"
+#include "math.h"
 
 
 /**
-  * \fn affiche_trait (int c)
+  * \fn affiche_cycle (int cycles,int c)
+	*
+	*	Affiche le nombres de cycle que la grille a vécu.
+	*
+  * \relatesalso grille
+	* \param cycles Le nombre de cycles.
+	* \param c Le nombre de colonnes de la grille.
+*/
+void affiche_cycle (int cycles,int c){
+	int i;
+	for(i=0;i<2*c-(int)log10(cycles+1)/2;i++)printf(" ");
+	printf("%d\n",cycles );
+	for(i=0;i<2*c-3;i++)printf(" ");
+	printf("cycles");
+	return;
+}
+
+/**
+  * \fn affiche_trait (int c, int* lignes)
 	*
 	*	Affiche les traits de la grille.
 	*
   * \relatesalso grille
-  * \relatesalso affiche_ligne
-  * \relatesalso affiche_grille
-  * \param c int, Le nombre de colonnes.
+	* \param c Le nombre de colonnes.
+  * \param lignes les temps de cycles.
 */
-void affiche_trait (int c){
+void affiche_trait (int c, int* lignes){
 	int i;
-	for (i=0; i<c; ++i) printf ("|---");
+	for (i=0; i<c; ++i) printf ("|-%d-",lignes[i]);
 	printf("|\n");
 	return;
 }
@@ -24,16 +42,14 @@ void affiche_trait (int c){
 	*	Affiche la ligne d'une grille.
 	*
   * \relatesalso grille
-  * \relatesalso affiche_trait
-  * \relatesalso affiche_grille
-  * \param c int, Le nombre de colonnes.
-  * \param lignes int*, Le tableau contenant l'état des cellules.
+  * \param c Le nombre de colonnes.
+  * \param ligne Le tableau contenant l'état des cellules.
 */
 
 void affiche_ligne (int c, int* ligne){
 	int i;
 	for (i=0; i<c; ++i)
-		if (ligne[i] == 0 ) printf ("|   "); else printf ("| O ");
+		if (ligne[i] == 0 ) printf ("|   "); else printf ("| # ");
 	printf("|\n");
 	return;
 }
@@ -45,17 +61,18 @@ void affiche_ligne (int c, int* ligne){
 	* et affiche_trait. Les cases vivantes sont indiqué par un O dans la case.
 	*
   * \relatesalso grille
-  * \relatesalso efface_grille
-  * \param g grille, La grille de référence pour l'affichage.
+  * \param g  La grille de référence pour l'affichage.
 */
 
+
+
 void affiche_grille (grille g){
-	int i, l=g.nbl, c=g.nbc;
+	int i=0, l=g.nbl, c=g.nbc;
 	printf("\n");
-	affiche_trait(c);
+	affiche_trait(c,g.cellules[i]);
 	for (i=0; i<l; ++i) {
 		affiche_ligne(c, g.cellules[i]);
-		affiche_trait(c);
+		affiche_trait(c, g.cellules[i]);
 	}
 	printf("\n");
 	return;
@@ -69,20 +86,23 @@ void affiche_grille (grille g){
 	* au début.
 	*
   * \relatesalso grille
-  * \relatesalso affiche_grille
-  * \param g grille, La grille de référence pour supprimer l'affichage.
+  * \param g La grille de référence pour supprimer l'affichage.
 */
 
 
 void efface_grille (grille g){
-	printf("\n\e[%dA",g.nbl*2 + 4);
+	printf("\n\e[%dA",g.nbl*2+5);
 	int i,j;
-	for (j=0; j<g.nbl*2+4;j++){
+	for (j=0; j<g.nbl*2+5;j++){
 		for (i=0; i<g.nbc; ++i) printf("       ");
 		printf("\n" );
 	}
-	printf("\e[%dA",g.nbl*2 + 5);
+	printf("\e[%dA",g.nbl*2+5);
 
+}
+
+void efface_cycle(){
+	printf("\eA" );
 }
 
 /**
@@ -90,13 +110,12 @@ void efface_grille (grille g){
   *	Récupère un pointeur d'une grille existante, et la remplacer par une
   * toute nouvellle en demandant à l'utilisateur d'entrer un chemin.
   *
-  * \param g grille, La grille à remplacer
+  * \param g La grille à remplacer
   * \warning provoque une erreur et mets en échec le programme si le chemin n'est pas correct.
 */
 
 void remplacer_grille(grille *g){
 	int c = getchar();
-	// while (c= getchar()!='\n' && c != EOF) {printf("%c",c);}
 	int sizeRead = 0;
 	int sizeMax = 50;
 	char* filename = malloc(sizeof(char)*sizeMax);
@@ -118,25 +137,40 @@ void remplacer_grille(grille *g){
 
 void debut_jeu(grille *g, grille *gc){
 	char c = getchar();
+	long cycles = 0;
+	int AGE_STATE = 1;
+	int CYCLIQUE = 1;
 	while (c != 'q') // touche 'q' pour quitter
 	{
 		switch (c) {
 			case '\n' :
 			{ // touche "entree" pour évoluer
-				evolue(g,gc);
+				evolue(g,gc,AGE_STATE,CYCLIQUE);
 				efface_grille(*g);
+				efface_cycle();
+				affiche_cycle(cycles,g->nbc);
 				affiche_grille(*g);
+				cycles++;
 				break;
 			}
 			case 'n' :
 			{ // touche "n" pour changer de grille
 				efface_grille(*g);
+				efface_cycle();
 				remplacer_grille(g);
 				alloue_grille(g->nbl,g->nbc,gc);
 				copie_grille(*g,*gc);
+				cycles = 0;
+				affiche_cycle(cycles,g->nbc);
 				affiche_grille(*g);
 				break;
 			}
+			case 'v':
+				AGE_STATE = (AGE_STATE>0)?0:1;
+				break;
+			case 'c':
+				CYCLIQUE = (CYCLIQUE>0)?0:1;
+				break;
 			default :
 			{ // touche non traitée
 				printf("\n\e[1A");
