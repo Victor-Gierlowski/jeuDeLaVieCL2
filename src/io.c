@@ -29,7 +29,7 @@ void affiche_cycle (int cycles,int c){
 */
 void affiche_trait (int c, int* lignes){
 	int i;
-	for (i=0; i<c; ++i) printf ("|-%d-",lignes[i]);
+	for (i=0; i<c; ++i) printf ("|-%d-",lignes[i]>0?lignes[i]:0);
 	printf("|\n");
 	return;
 }
@@ -47,7 +47,7 @@ void affiche_ligne (int c, int* ligne){
 	int i;
 	for (i=0; i<c; ++i){
 		if (ligne[i] == 0 ) printf ("|   ");
-		else if(ligne[i]==-1) printf("| X "); 
+		else if(ligne[i]==-1) printf("| X ");
 		else printf ("| # ");
 	}
 	printf("|\n");
